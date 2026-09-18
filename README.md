@@ -264,7 +264,7 @@ döner, bu derleme kendiliğinden devreye girmez.
 
 | Alan | Örnek | Nerede görünür |
 |---|---|---|
-| Yetkili adı soyadı | Uğur Avdaş | İmza, altbilgi |
+| Yetkili adı soyadı | (adınız) | İmza, altbilgi |
 | Yetkili ünvanı | Kurucu · Yangın güvenlik sorumlusu | İmza |
 | Yetkili fotoğrafı | kare, en az 200×200 | İmza |
 | Kuruluş yılı | 2016 | "10 yıldır Tekirdağ'da" |

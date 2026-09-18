@@ -85,7 +85,7 @@ ancak şablon atanınca görünür:
 
 | Alan | Örnek |
 |---|---|
-| Yetkili adı soyadı | Uğur Avdaş |
+| Yetkili adı soyadı | (adınızı yazın) |
 | Yetkili ünvanı | Kurucu · Yangın güvenlik sorumlusu |
 | Yetkili fotoğrafı | kare, en az 200×200 px |
 | Kuruluş yılı | 2016 |

@@ -25,7 +25,7 @@ function ty_ayarlar() {
  */
 function ty_kisi_ayarlari() {
 	return array(
-		'ty_yetkili_ad'    => array( 'label' => 'Yetkili adı soyadı (ör. Uğur Avdaş)', 'default' => '' ),
+		'ty_yetkili_ad'    => array( 'label' => 'Yetkili adı soyadı', 'default' => '' ),
 		'ty_yetkili_unvan' => array( 'label' => 'Yetkili ünvanı (ör. Kurucu · Yangın güvenlik uzmanı)', 'default' => '' ),
 		'ty_kurulus'       => array( 'label' => 'Kuruluş yılı (ör. 2016)',            'default' => '' ),
 		'ty_adres_tam'     => array( 'label' => 'Açık adres (sokak, no, mahalle)',    'default' => '' ),
