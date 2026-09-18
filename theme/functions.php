@@ -272,6 +272,19 @@ function ty_urun_kart( $u ) {
 	<?php
 }
 
+/**
+ * Sektör fotoğrafı — varsa kullanılır, yoksa kart ikonlu sade hâlinde kalır.
+ *
+ * Fotoğraf eklemek için tema dosyasına dokunmaya gerek yok:
+ * assets/img/foto/ klasörüne sektor-<slug>.jpg adıyla bir dosya bırakmak yeterli.
+ * Örnek: sektor-fabrika-osb.jpg, sektor-restoran-otel.jpg
+ * Önerilen boyut: 1200x900 (4:3).
+ */
+function ty_sektor_foto( $slug ) {
+	$dosya = 'foto/sektor-' . $slug . '.jpg';
+	return file_exists( get_theme_file_path( 'assets/img/' . $dosya ) ) ? $dosya : '';
+}
+
 /** Sektör slug'ına göre ikon adı. */
 function ty_sektor_ikon( $slug ) {
 	$s = ty_sektorler();

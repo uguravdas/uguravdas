@@ -138,8 +138,13 @@ $one = function_exists( 'ty_one_cikan_urunler' ) ? ty_one_cikan_urunler( 6 ) : a
     </div>
     <div class="grid-4">
       <?php foreach ( ty_sektorler() as $slug => $s ) : ?>
-        <a class="card" href="<?php echo esc_url( ty_url( $slug ) ); ?>">
-          <span class="chip"><?php echo ty_ikon( ty_sektor_ikon( $slug ) ); ?></span>
+        <?php $sfoto = ty_sektor_foto( $slug ); ?>
+        <a class="card<?php echo $sfoto ? ' card-foto' : ''; ?>" href="<?php echo esc_url( ty_url( $slug ) ); ?>">
+          <?php if ( $sfoto ) : ?>
+            <span class="card-medya"><?php echo ty_gorsel( $sfoto, $s['ad'], 'card-foto-img' ); ?></span>
+          <?php else : ?>
+            <span class="chip"><?php echo ty_ikon( ty_sektor_ikon( $slug ) ); ?></span>
+          <?php endif; ?>
           <h3><?php echo esc_html( $s['ad'] ); ?></h3>
           <p><?php echo esc_html( $s['ozet'] ); ?></p>
           <span class="more">Detayları gör &rarr;</span>

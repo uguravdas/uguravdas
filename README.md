@@ -2,15 +2,11 @@
 
 [tekirdagyangin.com](https://tekirdagyangin.com/) için hazırlanmış **arayüz yenileme paketi**.
 
-Site WordPress üzerinde, `tekirdagyangin` adlı özel bir tema ile çalışıyor. Bu paket
-temanın **HTML çıktısına hiç dokunmaz** — sadece görsel katmanı yeniler. Yani PHP
-şablonlarını, menüleri, hesaplayıcıyı veya form mantığını değiştirmeden
-uygulanabilir.
+`theme/` klasörü, sitede çalışan `tekirdagyangin` temasının **değiştirilmiş tam
+hâlidir**. Depodaki ilk kayıt (commit) temanın dokunulmamış hâli olduğu için
+her değişiklik tek tek görülebilir.
 
-```
-theme/assets/css/app.css   → mevcut app.css'in yerine geçer (zorunlu)
-theme/assets/js/app.js     → küçük arayüz geliştirmeleri (isteğe bağlı)
-```
+Menüler, hesaplayıcı, form mantığı ve içerik aynen korunmuştur.
 
 ---
 
@@ -150,3 +146,51 @@ Bunlar bu paketin kapsamı dışında ama sitenin işine doğrudan etki ediyor:
    `yangin-dolabi.jpg` zaten mevcut. Bunları bağlamak en büyük görsel kazanç olur.
 4. **Görsellerde `srcset` yok**; hepsi 800×600 tek boyut servis ediliyor.
 5. `/rehber/` bölümünde hiç yazı yok — menüde duran boş bir bölüm.
+
+---
+
+## 6. Görseller
+
+### Ürün fotoğrafları artık kendiliğinden geliyor
+
+Temada `assets/img/foto/` altında 18 fotoğraf duruyordu ama sitede yalnızca
+12'si görünüyordu. Sebep: `ty_urun_kart()` fonksiyonu, üründe WordPress
+"öne çıkan görsel" ayarlı değilse ikona düşüyordu — 13 ürünün hiçbirinde
+ayarlı olmadığı için bütün ürün kartları boş renkli kutu olarak çıkıyordu.
+
+Eklenen `ty_urun_foto()` fonksiyonu önce öne çıkan görsele bakar, yoksa
+ürünün adına/slug'ına göre temadaki uygun fotoğrafı bulur. 13 canlı ürün
+adıyla test edildi: **10'u doğru fotoğrafa eşleşiyor**. Kalan üçünün
+(battaniye, aparat, vana-rakor) temada yalnızca "fotoğraf bekleniyor"
+yer tutucusu olduğu için ikon yedeğinde bırakıldı — yangın ekipmanında
+yanlış ürün fotoğrafı, fotoğrafsızlıktan kötüdür.
+
+Panelden bir ürüne öne çıkan görsel seçerseniz her zaman o kazanır.
+
+### Sektör kartlarına fotoğraf ekleme
+
+Sektör kartları şu an sade ve ikonlu. Fotoğraf eklemek için kod
+değiştirmeye gerek yok — şu adla bir dosya bırakmanız yeterli:
+
+```
+assets/img/foto/sektor-<slug>.jpg      önerilen boyut 1200x900 (4:3)
+```
+
+Slug listesi:
+
+```
+sektor-fabrika-osb.jpg        sektor-okul-kres.jpg
+sektor-site-apartman.jpg      sektor-ofis-is-merkezi.jpg
+sektor-depo-lojistik.jpg      sektor-akaryakit.jpg
+sektor-restoran-otel.jpg      sektor-hastane-saglik.jpg
+```
+
+Dosyayı koyduğunuz an o kart fotoğraflı hâle geçer; koymadığınız kartlar
+mevcut sade görünümünü korur, hiçbir şey bozulmaz.
+
+### Mevcut fotoğrafların sınırı
+
+Temadaki fotoğrafların tamamı **800×600**. Kart içinde nettir, ama hero
+gibi geniş alanlarda büyütülünce yumuşak kalır. Bu yüzden hero'yu
+fotoğrafa taşımadım. Geniş görsel kullanmak isterseniz en az **1600 piksel
+genişliğinde** dosya gerekir.
