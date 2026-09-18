@@ -169,6 +169,79 @@ function ty_gorsel( $dosya, $alt = '', $sinif = 'urun-foto' ) {
 }
 
 /**
+ * Ürün görseli — panelde öne çıkan görsel yoksa temadaki hazır fotoğrafa düşer.
+ *
+ * Panelde "Ürün fotoğrafı" seçilmişse her zaman o kazanır. Seçilmemişse
+ * ürünün başlığına/slug'ına bakıp assets/img/foto/ altındaki uygun fotoğrafı
+ * kullanırız; böylece yeni ürün eklendiğinde kart boş kalmaz.
+ *
+ * Sırası önemli: en özel eşleşme en üstte olmalı.
+ */
+function ty_urun_yedek_foto( $metin ) {
+	$m = strtolower( $metin );
+	// "dolabı / dolabi" çekimini "dolap" ile aynı sepete koy
+	$m = str_replace( array( 'dolab', 'dolabi' ), 'dolap', $m );
+
+	$kurallar = array(
+		// dolaplar — önce özel tipler
+		array( array( 'dolap', 'dekoratif' ), 'foto/dolap-dekoratif.jpg' ),
+		array( array( 'dolap', 'kopuk' ),     'foto/dolap-kopuklu.jpg' ),
+		array( array( 'dolap', 'malzeme' ),   'foto/dolap-malzeme.jpg' ),
+		array( array( 'dolap', 'bina-disi' ), 'foto/dolap-bina-disi.jpg' ),
+		array( array( 'dolap', 'bina disi' ), 'foto/dolap-bina-disi.jpg' ),
+		array( array( 'dolap', 'bina' ),      'foto/dolap-bina-ici.jpg' ),
+		array( array( 'dolap' ),              'foto/yangin-dolabi.jpg' ),
+		array( array( 'hidrant', 'dolap' ),   'foto/yangin-dolabi.jpg' ),
+
+		// otomatik sistemler
+		array( array( 'davlumbaz' ),          'foto/davlumbaz.jpg' ),
+		array( array( 'pano' ),               'foto/pano-ici.jpg' ),
+
+		// yardımcı ekipman
+		array( array( 'hortum' ),             'foto/hortum-lans.jpg' ),
+		array( array( 'lans' ),               'foto/hortum-lans.jpg' ),
+		array( array( 'makara' ),             'foto/hortum-lans.jpg' ),
+
+		// tüpler — kapasite ve tipe göre
+		array( array( '50', 'tekerlek' ),     'foto/50kg-tekerlekli.jpg' ),
+		array( array( 'tekerlek' ),           'foto/50kg-tekerlekli.jpg' ),
+		array( array( 'co2' ),                'foto/5kg-co2.jpg' ),
+		array( array( 'karbondioksit' ),      'foto/5kg-co2.jpg' ),
+		array( array( 'kopuk' ),              'foto/kopuklu.jpg' ),
+		array( array( 'eko' ),                'foto/kopuklu.jpg' ),
+		array( array( 'biyolojik' ),          'foto/kopuklu.jpg' ),
+		array( array( 'arac' ),               'foto/arac-tupu.jpg' ),
+		array( array( '12' ),                 'foto/12kg-kkt.jpg' ),
+		array( array( 'tup' ),                'foto/6kg-kkt.jpg' ),
+	);
+
+	foreach ( $kurallar as $kural ) {
+		$tumu = true;
+		foreach ( $kural[0] as $kelime ) {
+			if ( false === strpos( $m, $kelime ) ) { $tumu = false; break; }
+		}
+		if ( $tumu && file_exists( get_theme_file_path( 'assets/img/' . $kural[1] ) ) ) {
+			return $kural[1];
+		}
+	}
+	return '';
+}
+
+/**
+ * Bir ürün gönderisinin görsel adresi: önce öne çıkan görsel, sonra yedek fotoğraf.
+ */
+function ty_urun_foto( $post_id, $boyut = 'large' ) {
+	$foto = get_the_post_thumbnail_url( $post_id, $boyut );
+	if ( $foto ) { return $foto; }
+
+	$gonderi = get_post( $post_id );
+	if ( ! $gonderi ) { return ''; }
+
+	$yedek = ty_urun_yedek_foto( $gonderi->post_name . ' ' . $gonderi->post_title );
+	return $yedek ? get_theme_file_uri( 'assets/img/' . $yedek ) : '';
+}
+
+/**
  * Ürün kartı. Hem panelden gelen ürünü hem temadaki varsayılan diziyi basar.
  */
 function ty_urun_kart( $u ) {

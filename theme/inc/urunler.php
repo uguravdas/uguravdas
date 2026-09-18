@@ -193,7 +193,7 @@ function ty_urun_gruplari() {
 				'id'     => $u->ID,
 				'ad'     => get_the_title( $u ),
 				'nerede' => get_post_meta( $u->ID, '_ty_nerede', true ),
-				'foto'   => get_the_post_thumbnail_url( $u->ID, 'large' ),
+				'foto'   => ty_urun_foto( $u->ID, 'large' ),
 				'one'    => (bool) get_post_meta( $u->ID, '_ty_one_cikan', true ),
 				'link'   => get_permalink( $u ),
 			);
@@ -226,7 +226,7 @@ function ty_one_cikan_urunler( $adet = 3 ) {
 		$out[] = array(
 			'ad'     => get_the_title( $u ),
 			'nerede' => get_post_meta( $u->ID, '_ty_nerede', true ),
-			'foto'   => get_the_post_thumbnail_url( $u->ID, 'medium' ),
+			'foto'   => ty_urun_foto( $u->ID, 'medium' ),
 			'link'   => get_permalink( $u ),
 		);
 	}
@@ -262,7 +262,7 @@ function ty_tip_urunleri( $tip_slug ) {
 			'id'     => $u->ID,
 			'ad'     => get_the_title( $u ),
 			'nerede' => get_post_meta( $u->ID, '_ty_nerede', true ),
-			'foto'   => get_the_post_thumbnail_url( $u->ID, 'large' ),
+			'foto'   => ty_urun_foto( $u->ID, 'large' ),
 			'one'    => (bool) get_post_meta( $u->ID, '_ty_one_cikan', true ),
 			'link'   => get_permalink( $u ),
 		);
@@ -287,7 +287,7 @@ function ty_grup_urunleri( $grup ) {
 			'id'     => $u->ID,
 			'ad'     => get_the_title( $u ),
 			'nerede' => get_post_meta( $u->ID, '_ty_nerede', true ),
-			'foto'   => get_the_post_thumbnail_url( $u->ID, 'large' ),
+			'foto'   => ty_urun_foto( $u->ID, 'large' ),
 			'one'    => (bool) get_post_meta( $u->ID, '_ty_one_cikan', true ),
 			'link'   => get_permalink( $u ),
 		);

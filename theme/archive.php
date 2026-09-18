@@ -21,7 +21,7 @@ get_header(); ?>
             ty_urun_kart( array(
                 'ad'     => get_the_title(),
                 'nerede' => get_post_meta( get_the_ID(), '_ty_nerede', true ),
-                'foto'   => get_the_post_thumbnail_url( get_the_ID(), 'large' ),
+                'foto'   => ty_urun_foto( get_the_ID(), 'large' ),
                 'link'   => get_permalink(),
             ) );
         } else {

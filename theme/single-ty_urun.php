@@ -25,8 +25,13 @@ $grup   = get_the_terms( get_the_ID(), 'ty_urun_grup' );
 <section class="entry">
   <div class="wrap entry-grid">
     <div class="entry-body">
-      <?php if ( has_post_thumbnail() ) : ?>
-        <figure class="urun-tek-foto"><?php the_post_thumbnail( 'large' ); ?></figure>
+      <?php
+      // Öne çıkan görsel yoksa temadaki eşleşen fotoğrafa düşer.
+      $ty_tek_foto = ty_urun_foto( get_the_ID(), 'large' );
+      if ( $ty_tek_foto ) : ?>
+        <figure class="urun-tek-foto">
+          <img src="<?php echo esc_url( $ty_tek_foto ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" width="800" height="600" decoding="async">
+        </figure>
       <?php endif; ?>
       <?php the_content(); ?>
       <?php if ( $grup && ! is_wp_error( $grup ) ) : ?>
@@ -50,7 +55,7 @@ if ( $benzer ) : ?>
       <?php foreach ( $benzer as $b ) {
           ty_urun_kart( array(
               'ad' => get_the_title( $b ), 'nerede' => get_post_meta( $b->ID, '_ty_nerede', true ),
-              'foto' => get_the_post_thumbnail_url( $b->ID, 'large' ), 'link' => get_permalink( $b ),
+              'foto' => ty_urun_foto( $b->ID, 'large' ), 'link' => get_permalink( $b ),
           ) );
       } ?>
     </div>
