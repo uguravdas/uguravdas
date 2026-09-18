@@ -8,8 +8,17 @@
         <?php ty_logo(); ?>
         <p style="margin-top:.9rem;max-width:38ch">Tekirdağ genelinde yangın söndürme cihazı, yangın dolabı ve hidrant, davlumbaz ve pano içi otomatik söndürme.</p>
         <p style="margin-top:1rem"><a class="num" href="<?php echo esc_attr( ty_tel_link() ); ?>" data-ty="tel-footer"><?php echo esc_html( ty_tel() ); ?></a></p>
-        <p style="margin-top:.3rem"><?php echo esc_html( ty_op( 'ty_adres' ) ); ?></p>
+        <p style="margin-top:.3rem">
+          <?php
+          $ty_f_adres = trim( ty_op( 'ty_adres_tam' ) );
+          echo esc_html( $ty_f_adres ? $ty_f_adres . ' · ' . ty_op( 'ty_adres' ) : ty_op( 'ty_adres' ) );
+          ?>
+        </p>
         <p style="margin-top:.3rem"><a href="mailto:<?php echo esc_attr( ty_op( 'ty_email' ) ); ?>"><?php echo esc_html( ty_op( 'ty_email' ) ); ?></a></p>
+        <p class="foot-saat">
+          <?php echo esc_html( ty_op( 'ty_saat_hafta' ) ); ?><br>
+          <?php echo esc_html( ty_op( 'ty_saat_cmt' ) ); ?> · Pazar kapalı
+        </p>
       </div>
 
       <div>
@@ -41,7 +50,15 @@
     </div>
 
     <div class="foot-bottom">
-      <span>&copy; <?php echo esc_html( date_i18n( 'Y' ) ); ?> <?php echo esc_html( ty_op( 'ty_unvan' ) ); ?></span>
+      <span>
+        &copy; <?php echo esc_html( date_i18n( 'Y' ) ); ?> <?php echo esc_html( ty_op( 'ty_unvan' ) ); ?>
+        <?php
+        $ty_f_yil = ty_kac_yil();
+        if ( $ty_f_yil ) { echo ' · ' . esc_html( $ty_f_yil ) . ' yıldır Tekirdağ\'da'; }
+        $ty_f_kisi = trim( ty_op( 'ty_yetkili_ad' ) );
+        if ( $ty_f_kisi ) { echo ' · Sorumlu: ' . esc_html( $ty_f_kisi ); }
+        ?>
+      </span>
       <span><a href="<?php echo esc_url( ty_url( 'kvkk-aydinlatma-metni' ) ); ?>">KVKK Aydınlatma Metni</a></span>
     </div>
   </div>

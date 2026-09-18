@@ -218,3 +218,76 @@ Slug listesi: `fabrika-osb`, `site-apartman`, `depo-lojistik`,
 Fotoğrafların tamamı **800×600**. Kart içinde nettir ama hero gibi tam genişlik
 alanlarda yumuşak kalır; bu yüzden ana sayfa hero'suna fotoğraf koymadım.
 Geniş görsel için en az **1600 piksel** genişliğinde dosya gerekir.
+
+---
+
+## 7. İnsan yapımı hissi ("hümanist" katman)
+
+Bir sitenin "otomatik üretilmiş" görünmesinin en güçlü sebepleri şunlardır:
+yarım kalmış sayfalar, hiç kimseye ait olmayan bir ses, kusursuz simetri ve
+arkasında insan olduğunu gösteren hiçbir iz bulunmaması. Aşağıdakiler bunları
+kırmak için yapıldı.
+
+### Boş sayfalar dolduruldu
+
+| Sayfa | Önce | Sonra |
+|---|---|---|
+| Rehber | "Henüz yazı yok" | **51 soru-cevap**, 3 grupta, her biri kaynağına bağlı |
+| İletişim | 2 cümle + form | Künye bloğu, çalışma saatleri, hizmet bölgesi, harita, imza |
+
+Rehber'deki sorular uydurulmadı: ürün ve sektör sayfalarınızda zaten yazılı
+olan içerik tek yerde toplandı. Yazı eklediğinizde sayfa normal blog listesine
+döner, bu derleme kendiliğinden devreye girmez.
+
+### Arkasında insan olduğunu gösteren izler
+
+- **İmza bloğu** — el yazısı görünümlü imza, ad, ünvan ve isteğe bağlı fotoğraf.
+  Hakkımızda, Belgelerimiz ve İletişim sayfalarının altında çıkar.
+- **Güvence bandı** — "Ne söz veriyoruz": dört somut söz ve elle basılmış
+  görünümlü damga. Maddeler sitenizde zaten geçen sözler, yeni iddia eklenmedi.
+- **Altbilgi** — her sayfada çalışma saatleri, açık adres, kaç yıldır çalıştığınız
+  ve sorumlu kişi.
+- **Künye** — "Kiminle konuşuyorsunuz" başlığı altında firma, adres, telefon,
+  saatler ve hizmet bölgesi; "Pazar kapalıyız", "Aramaya cevap veremezsek geri
+  döneriz" gibi gerçek notlarla.
+
+### Tasarımdaki el işi detayları
+
+- Başlıkların altına **elle çizilmiş, düzensiz kırmızı çizgi** (düz cetvel çizgisi değil).
+- Renkli bölümlerde **kâğıt taneciği dokusu** — düz dijital zemin yerine.
+- **Eğik basılmış damga**, tam hizalı değil.
+- Uzun metinlerde **ilk harf büyütmesi** ve **asılı tırnaklı alıntı** — matbaa işi detayları.
+
+### Panelden doldurulacak alanlar
+
+**Görünüm → Özelleştir → Firma ve Yetkili**
+
+| Alan | Örnek | Nerede görünür |
+|---|---|---|
+| Yetkili adı soyadı | Uğur Avdaş | İmza, altbilgi |
+| Yetkili ünvanı | Kurucu · Yangın güvenlik sorumlusu | İmza |
+| Yetkili fotoğrafı | kare, en az 200×200 | İmza |
+| Kuruluş yılı | 2016 | "10 yıldır Tekirdağ'da" |
+| Açık adres | Hürriyet Mah. 1012 Sok. No:14/A | Künye, altbilgi |
+| Harita gömme adresi | Google Maps "embed" kodu | İletişim sayfası |
+
+**Bu alanlar boşken hiçbir şey basılmaz** — yarım görünen bir blok kalmaz.
+Yani tema şimdi de sorunsuz çalışır; doldurdukça site daha da kişiselleşir.
+
+### Bunu mutlaka yapın: İletişim sayfasının şablonu
+
+Temada zengin bir **"İletişim sayfası"** şablonu var ama canlı sitede İletişim
+sayfasına atanmamış; bu yüzden künye ve harita görünmez.
+
+**Sayfalar → İletişim → Düzenle → (sağ sütun) Sayfa Özellikleri → Şablon →
+"İletişim sayfası" → Güncelle**
+
+### Sizin tamamlamanız gerekenler
+
+Bunlar sayfa içeriğinde (veritabanında) olduğu için temadan değiştirilemez:
+
+1. **Belgelerimiz** sayfasındaki *"Belgelerimizin görselleri bu sayfaya
+   eklenecektir."* cümlesi. Belge fotoğraflarını yükleyin ya da bu cümleyi
+   kaldırın — "eklenecek" demek siteyi yarım gösterir.
+2. **Hakkımızda** sayfasına iki üç cümlelik kişisel bir giriş: bu işe ne zaman,
+   neden başladınız. Sitedeki en insani metin bu olur.

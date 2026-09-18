@@ -63,15 +63,54 @@ $ty_katlar  = get_categories( array( 'hide_empty' => true, 'number' => 8 ) );
 
 <?php else : ?>
 
+<?php
+/* Yazı yoksa sayfayı boş bırakmıyoruz: sahada en çok sorulan sorular
+   zaten ürün ve sektör sayfalarında yazılı — burada tek yerde topluyoruz. */
+$ty_rehber = ty_rehber_sorular();
+?>
+
+<?php if ( $ty_rehber ) : ?>
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Sahadan</span>
+      <h2>En çok sorulanlar</h2>
+      <p>Aşağıdakiler bize telefonda en sık gelen sorular. Cevapları ilgili ürün ve
+         sektör sayfalarından derledik; aradığınızı bulamazsanız arayın, konuşarak halledelim.</p>
+    </div>
+
+    <?php foreach ( $ty_rehber as $ty_baslik_grup => $ty_sorular ) : ?>
+      <div class="rehber-grup">
+        <h3 class="rehber-grup-baslik"><?php echo esc_html( $ty_baslik_grup ); ?></h3>
+        <div class="sss">
+          <?php foreach ( $ty_sorular as $ty_q ) : ?>
+            <details>
+              <summary><?php echo esc_html( $ty_q['s'] ); ?></summary>
+              <div>
+                <p><?php echo esc_html( $ty_q['c'] ); ?></p>
+                <?php if ( ! empty( $ty_q['url'] ) ) : ?>
+                  <p><a href="<?php echo esc_url( $ty_q['url'] ); ?>">
+                    <?php echo esc_html( $ty_q['kaynak'] ); ?> sayfasına git &rarr;</a></p>
+                <?php endif; ?>
+              </div>
+            </details>
+          <?php endforeach; ?>
+        </div>
+      </div>
+    <?php endforeach; ?>
+  </div>
+</section>
+<?php else : ?>
 <section class="sec">
   <div class="wrap">
     <div class="sec-head orta">
-      <h2>Henüz yazı yok</h2>
-      <p>Yakında yönetmelik ve ekipman rehberleri burada olacak. Aklınızdaki soruyu şimdi sormak isterseniz arayın.</p>
+      <h2>Aradığınızı bulamadınız mı?</h2>
+      <p>Yerinizi anlatın, yönetmeliğe göre neyin gerektiğini telefonda söyleyelim.</p>
       <a class="btn btn-primary" href="<?php echo esc_attr( ty_tel_link() ); ?>"><?php echo ty_ikon( 'telefon' ); ?><?php echo esc_html( ty_tel() ); ?></a>
     </div>
   </div>
 </section>
+<?php endif; ?>
 
 <?php endif; ?>
 

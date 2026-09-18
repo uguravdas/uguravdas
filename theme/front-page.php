@@ -64,7 +64,7 @@ $one = function_exists( 'ty_one_cikan_urunler' ) ? ty_one_cikan_urunler( 6 ) : a
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">Ürünler</span>
-      <h2>Ne lazımsa buradan alın</h2>
+      <h2><span class="el-alti">Ne lazımsa</span> buradan alın</h2>
       <p>Kategoriye girin, modelleri ve teknik özellikleri orada göreceksiniz. Fiyatlar kapasite, adet ve montaj durumuna göre değiştiği için sabit liste yayınlamıyoruz — ihtiyacınızı yazın, aynı gün fiyat gönderelim.</p>
     </div>
     <div class="tip-grid tip-grid-4">
@@ -100,7 +100,7 @@ $one = function_exists( 'ty_one_cikan_urunler' ) ? ty_one_cikan_urunler( 6 ) : a
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">Öne çıkanlar</span>
-      <h2>En çok satılan modeller</h2>
+      <h2><span class="el-alti">En çok satılan</span> modeller</h2>
       <p>Sahada en çok istenen kalemler. Adedi yazın, aynı gün fiyat gönderelim.</p>
     </div>
     <div class="grid-3">
@@ -158,7 +158,7 @@ $one = function_exists( 'ty_one_cikan_urunler' ) ? ty_one_cikan_urunler( 6 ) : a
   <div class="wrap">
     <div class="sec-head orta surec-head">
       <span class="eyebrow">Nasıl ilerliyoruz</span>
-      <h2>Telefondan montaja dört adım</h2>
+      <h2>Telefondan montaja <span class="el-alti">dört adım</span></h2>
       <p>Uzun süreç yok, evrak yok. Ne lazım olduğunu söylemeniz yeterli — gerisini biz yürütüyoruz.</p>
     </div>
 

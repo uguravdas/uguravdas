@@ -136,7 +136,13 @@ if ( $ty_tip ) :
 <?php if ( trim( wp_strip_all_tags( get_the_content() ) ) ) : ?>
 <section class="entry">
   <div class="wrap entry-grid">
-    <div class="entry-body"><?php the_content(); ?></div>
+    <div class="entry-body">
+        <?php the_content(); ?>
+        <?php
+        /* Kurumsal sayfalarda "bunu kim yazdı" imzası. Panelde ad girilmemişse basılmaz. */
+        if ( is_page( array( 'hakkimizda', 'belgelerimiz', 'iletisim' ) ) ) { echo ty_imza(); }
+        ?>
+      </div>
     <?php get_template_part( 'parts/aside' ); ?>
   </div>
 </section>
@@ -239,6 +245,11 @@ echo wp_json_encode( $ty_ld, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES );
 <?php endif;
 
 endwhile;
+
+/* Kurumsal sayfalarda güvence bandı: "bu işi kim, nasıl yapıyor". */
+if ( is_page( array( 'hakkimizda', 'belgelerimiz', 'hizmetler' ) ) ) {
+	get_template_part( 'parts/guvence' );
+}
 
 if ( $ty_tip ) {
 	get_template_part( 'parts/teklif', null, array(

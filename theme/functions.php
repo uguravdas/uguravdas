@@ -278,6 +278,111 @@ function ty_urun_kart( $u ) {
 }
 
 /**
+ * İmza bloğu — sayfanın altında "bunu kim yazdı / kiminle konuşacaksınız".
+ *
+ * Panelden ad girilmemişse hiçbir şey basılmaz; yarım bir blok görünmez.
+ * Görünüm → Özelleştir → Firma ve Yetkili
+ */
+function ty_imza() {
+	$ad = trim( ty_op( 'ty_yetkili_ad' ) );
+	if ( ! $ad ) { return ''; }
+
+	$unvan = trim( ty_op( 'ty_yetkili_unvan' ) );
+	$foto  = get_theme_mod( 'ty_yetkili_foto', '' );
+
+	/* Elle atılmış imza görünümü — adın baş harfleri değil, tek hamlelik bir çizgi. */
+	$cizgi = '<svg class="imza-cizgi" viewBox="0 0 150 34" fill="none" aria-hidden="true">'
+	       . '<path d="M4 25c8-9 14-14 18-15 3-.7 4 .7 3 4-1.6 5.3-5 9.6-5 11 0 1.2 1 1.4 2.4.4'
+	       . ' 3-2 6.4-6.4 9-10 2-2.7 3.4-3.6 4-2.6.5.9 0 2.9-1 5.4-1 2.4-1.4 3.9-.7 4.4.8.6 2.4-.2 4.4-2'
+	       . ' 3.4-3 6-6.4 8.6-10.4 1.3-2 2.3-2.6 2.8-1.8.4.7 0 2.4-1 4.6-1.2 2.6-1.6 4.2-.8 4.8.9.7 2.8-.3 5-2.6'
+	       . ' 2.8-2.9 5-5.8 7.4-9 1.2-1.6 2-2 2.4-1.3.3.6 0 2-.8 3.8-1 2.2-1.2 3.6-.4 4.2 1 .8 3 0 5.4-2'
+	       . ' 4.6-4 9-8.6 14.6-11.4 6-3 11-3.4 15-1.6 3 1.4 4 3.6 3 5.6-1.2 2.4-4.6 3.8-9.6 4.2-6 .5-12-.6-18-2.4"'
+	       . ' stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+	$out  = '<div class="imza">';
+	if ( $foto ) {
+		$out .= sprintf(
+			'<img class="imza-foto" src="%s" alt="%s" width="64" height="64" loading="lazy" decoding="async">',
+			esc_url( $foto ),
+			esc_attr( $ad )
+		);
+	}
+	$out .= '<div>' . $cizgi
+	      . '<div class="imza-ad">' . esc_html( $ad ) . '</div>';
+	if ( $unvan ) {
+		$out .= '<div class="imza-unvan">' . esc_html( $unvan ) . '</div>';
+	}
+	$out .= '</div></div>';
+
+	return $out;
+}
+
+/**
+ * Kaç yıldır bu işi yaptığımızı kuruluş yılından hesaplar.
+ * Yıl girilmemişse boş döner, hiçbir yerde "0 yıl" yazmaz.
+ */
+function ty_kac_yil() {
+	$yil = (int) ty_op( 'ty_kurulus' );
+	if ( $yil < 1900 || $yil > (int) date( 'Y' ) ) { return 0; }
+	return (int) date( 'Y' ) - $yil;
+}
+
+/**
+ * Rehber sayfası için soru-cevap derlemesi.
+ *
+ * Yeni içerik yazmıyoruz: ürün tipi ve sektör sayfalarında zaten yazılı olan
+ * sorular tek yerde toplanıyor. Böylece Rehber sayfası boş kalmıyor ve
+ * ziyaretçi aradığı cevabı gerçekten bulabiliyor.
+ */
+function ty_rehber_sorular() {
+	$gruplar = array();
+
+	// Ürün tipleri (tüpler, dolaplar)
+	foreach ( ty_urun_tipleri() as $slug => $tip ) {
+		if ( empty( $tip['sss'] ) ) { continue; }
+		$baslik = 'dolap' === $tip['grup'] ? 'Yangın dolabı' : 'Yangın söndürme tüpü';
+		foreach ( $tip['sss'] as $q ) {
+			if ( empty( $q[0] ) || empty( $q[1] ) ) { continue; }
+			$gruplar[ $baslik ][] = array(
+				's'      => $q[0],
+				'c'      => $q[1],
+				'url'    => ty_url( $slug ),
+				'kaynak' => $tip['ad'],
+			);
+		}
+	}
+
+	// Sektörler
+	foreach ( ty_sektorler() as $slug => $sektor ) {
+		if ( empty( $sektor['sss'] ) ) { continue; }
+		foreach ( $sektor['sss'] as $q ) {
+			if ( empty( $q[0] ) || empty( $q[1] ) ) { continue; }
+			$gruplar['Tesis ve işletmeler'][] = array(
+				's'      => $q[0],
+				'c'      => $q[1],
+				'url'    => ty_url( $slug ),
+				'kaynak' => $sektor['ad'],
+			);
+		}
+	}
+
+	// Aynı soru birden çok sayfada geçiyorsa bir kez göster.
+	foreach ( $gruplar as $ad => $liste ) {
+		$gorulen = array();
+		$temiz   = array();
+		foreach ( $liste as $q ) {
+			$anahtar = mb_strtolower( trim( $q['s'] ) );
+			if ( isset( $gorulen[ $anahtar ] ) ) { continue; }
+			$gorulen[ $anahtar ] = true;
+			$temiz[] = $q;
+		}
+		$gruplar[ $ad ] = $temiz;
+	}
+
+	return $gruplar;
+}
+
+/**
  * Sektör fotoğrafı — varsa kullanılır, yoksa kart ikonlu sade hâlinde kalır.
  *
  * Fotoğraf eklemek için tema dosyasına dokunmaya gerek yok:

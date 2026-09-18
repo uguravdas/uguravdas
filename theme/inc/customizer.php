@@ -19,6 +19,20 @@ function ty_ayarlar() {
 	);
 }
 
+/**
+ * "Arkasında insan var" alanları.
+ * Doldurulmayan alan siteye hiç basılmaz — yarım görünen bir bölüm kalmaz.
+ */
+function ty_kisi_ayarlari() {
+	return array(
+		'ty_yetkili_ad'    => array( 'label' => 'Yetkili adı soyadı (ör. Uğur Avdaş)', 'default' => '' ),
+		'ty_yetkili_unvan' => array( 'label' => 'Yetkili ünvanı (ör. Kurucu · Yangın güvenlik uzmanı)', 'default' => '' ),
+		'ty_kurulus'       => array( 'label' => 'Kuruluş yılı (ör. 2016)',            'default' => '' ),
+		'ty_adres_tam'     => array( 'label' => 'Açık adres (sokak, no, mahalle)',    'default' => '' ),
+		'ty_harita'        => array( 'label' => 'Harita gömme adresi (Google Maps / OpenStreetMap "embed" linki)', 'default' => '' ),
+	);
+}
+
 add_action( 'customize_register', function ( $wp_customize ) {
 	$wp_customize->add_section( 'ty_iletisim', array(
 		'title'    => 'İletişim Bilgileri',
@@ -37,11 +51,43 @@ add_action( 'customize_register', function ( $wp_customize ) {
 			'type'    => 'text',
 		) );
 	}
+
+	/* --- Firma ve kişi bilgileri --- */
+	$wp_customize->add_section( 'ty_kisi', array(
+		'title'       => 'Firma ve Yetkili',
+		'priority'    => 26,
+		'description' => 'Bu alanlar siteye "arkasında gerçek biri var" hissi verir. Boş bıraktığınız alan hiç görünmez.',
+	) );
+
+	foreach ( ty_kisi_ayarlari() as $key => $cfg ) {
+		$wp_customize->add_setting( $key, array(
+			'default'           => $cfg['default'],
+			'sanitize_callback' => 'wp_kses_post',
+			'transport'         => 'refresh',
+		) );
+		$wp_customize->add_control( $key, array(
+			'label'   => $cfg['label'],
+			'section' => 'ty_kisi',
+			'type'    => 'ty_harita' === $key ? 'textarea' : 'text',
+		) );
+	}
+
+	/* Yetkili fotoğrafı */
+	$wp_customize->add_setting( 'ty_yetkili_foto', array(
+		'default'           => '',
+		'sanitize_callback' => 'esc_url_raw',
+		'transport'         => 'refresh',
+	) );
+	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'ty_yetkili_foto', array(
+		'label'       => 'Yetkili fotoğrafı (kare, en az 200x200)',
+		'description' => 'Yüzü görünen sade bir fotoğraf yeterli. Telefon kamerası olur.',
+		'section'     => 'ty_kisi',
+	) ) );
 } );
 
 /** Ayar oku. */
 function ty_op( $key ) {
-	$ayarlar = ty_ayarlar();
+	$ayarlar = array_merge( ty_ayarlar(), ty_kisi_ayarlari() );
 	$default = isset( $ayarlar[ $key ] ) ? $ayarlar[ $key ]['default'] : '';
 	return get_theme_mod( $key, $default );
 }
