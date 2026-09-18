@@ -901,6 +901,21 @@ textarea:focus-visible,summary:focus-visible,[tabindex]:focus-visible{
 .page-lead{color:var(--ink-soft);margin-top:1.15rem;max-width:56ch;font-size:var(--t-lg);line-height:1.62}
 .page-hero .hero-cta{margin-top:1.9rem}
 
+/* Sayfa başlığında fotoğraf (sektör sayfaları) */
+.page-hero-grid{
+  display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(30px,4vw,56px);align-items:center;
+}
+.page-hero-foto h1{max-width:none}
+.page-hero-medya{
+  border-radius:var(--r-card);overflow:hidden;border:1px solid var(--line);
+  background:var(--tint-2);box-shadow:var(--sh-lg);
+}
+.page-hero-img{width:100%;height:auto;display:block;aspect-ratio:4/3;object-fit:cover}
+@media (max-width:860px){
+  .page-hero-grid{grid-template-columns:1fr;gap:28px}
+  .page-hero-medya{order:-1}
+}
+
 /* --------------------------------------------------------------------------
    20. İçerik gövdesi ve yan sütun
    -------------------------------------------------------------------------- */

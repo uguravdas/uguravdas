@@ -9,15 +9,21 @@ $ad  = $s ? $s['ad'] : get_the_title();
 $hiz = ty_hizmetler();
 while ( have_posts() ) : the_post(); ?>
 
-<section class="page-hero">
-  <div class="wrap">
-    <?php ty_crumb( array( 'ad' => 'Sektörler', 'url' => ty_url( 'sektorler' ) ) ); ?>
-    <h1><?php echo esc_html( $ad ); ?> için yangın güvenliği</h1>
-    <p class="page-lead"><?php echo $s ? esc_html( $s['ozet'] ) : esc_html( get_the_excerpt() ); ?></p>
-    <div class="hero-cta">
-      <a class="btn btn-primary" href="#teklif">Ücretsiz keşif talep et</a>
-      <a class="btn btn-line" href="<?php echo esc_attr( ty_tel_link() ); ?>" data-ty="tel-sektor"><?php echo ty_ikon( 'telefon' ); ?><?php echo esc_html( ty_tel() ); ?></a>
+<?php global $post; $sek_foto = ty_sektor_foto( $post ? $post->post_name : '' ); ?>
+<section class="page-hero<?php echo $sek_foto ? ' page-hero-foto' : ''; ?>">
+  <div class="wrap<?php echo $sek_foto ? ' page-hero-grid' : ''; ?>">
+    <div>
+      <?php ty_crumb( array( 'ad' => 'Sektörler', 'url' => ty_url( 'sektorler' ) ) ); ?>
+      <h1><?php echo esc_html( $ad ); ?> için yangın güvenliği</h1>
+      <p class="page-lead"><?php echo $s ? esc_html( $s['ozet'] ) : esc_html( get_the_excerpt() ); ?></p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#teklif">Ücretsiz keşif talep et</a>
+        <a class="btn btn-line" href="<?php echo esc_attr( ty_tel_link() ); ?>" data-ty="tel-sektor"><?php echo ty_ikon( 'telefon' ); ?><?php echo esc_html( ty_tel() ); ?></a>
+      </div>
     </div>
+    <?php if ( $sek_foto ) : ?>
+      <div class="page-hero-medya"><?php echo ty_gorsel( $sek_foto, $ad, 'page-hero-img' ); ?></div>
+    <?php endif; ?>
   </div>
 </section>
 
@@ -87,8 +93,13 @@ while ( have_posts() ) : the_post(); ?>
       foreach ( $liste as $slug ) :
           if ( ! isset( $hiz[ $slug ] ) ) { continue; }
           $h = $hiz[ $slug ]; ?>
-        <a class="card" href="<?php echo esc_url( ty_url( $slug ) ); ?>">
-          <span class="chip"><?php echo ty_ikon( $h['ikon'] ); ?></span>
+        <?php $hfoto = ! empty( $h['foto'] ) ? $h['foto'] : ''; ?>
+        <a class="card<?php echo $hfoto ? ' card-foto' : ''; ?>" href="<?php echo esc_url( ty_url( $slug ) ); ?>">
+          <?php if ( $hfoto ) : ?>
+            <span class="card-medya"><?php echo ty_gorsel( $hfoto, $h['baslik'], 'card-foto-img' ); ?></span>
+          <?php else : ?>
+            <span class="chip"><?php echo ty_ikon( $h['ikon'] ); ?></span>
+          <?php endif; ?>
           <h3><?php echo esc_html( $h['baslik'] ); ?></h3>
           <p><?php echo esc_html( $h['ozet'] ); ?></p>
           <span class="more">Detayları gör &rarr;</span>

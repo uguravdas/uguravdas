@@ -191,7 +191,6 @@ function ty_urun_yedek_foto( $metin ) {
 		array( array( 'dolap', 'bina disi' ), 'foto/dolap-bina-disi.jpg' ),
 		array( array( 'dolap', 'bina' ),      'foto/dolap-bina-ici.jpg' ),
 		array( array( 'dolap' ),              'foto/yangin-dolabi.jpg' ),
-		array( array( 'hidrant', 'dolap' ),   'foto/yangin-dolabi.jpg' ),
 
 		// otomatik sistemler
 		array( array( 'davlumbaz' ),          'foto/davlumbaz.jpg' ),
@@ -201,6 +200,12 @@ function ty_urun_yedek_foto( $metin ) {
 		array( array( 'hortum' ),             'foto/hortum-lans.jpg' ),
 		array( array( 'lans' ),               'foto/hortum-lans.jpg' ),
 		array( array( 'makara' ),             'foto/hortum-lans.jpg' ),
+		array( array( 'battaniye' ),          'foto/battaniye.jpg' ),
+		array( array( 'aparat' ),             'foto/aparat.jpg' ),
+		array( array( 'etiket' ),             'foto/aparat.jpg' ),
+		array( array( 'vana' ),               'foto/vana-rakor.jpg' ),
+		array( array( 'rakor' ),              'foto/vana-rakor.jpg' ),
+		array( array( 'hidrant' ),            'foto/vana-rakor.jpg' ),
 
 		// tüpler — kapasite ve tipe göre
 		array( array( '50', 'tekerlek' ),     'foto/50kg-tekerlekli.jpg' ),
@@ -281,8 +286,17 @@ function ty_urun_kart( $u ) {
  * Önerilen boyut: 1200x900 (4:3).
  */
 function ty_sektor_foto( $slug ) {
-	$dosya = 'foto/sektor-' . $slug . '.jpg';
-	return file_exists( get_theme_file_path( 'assets/img/' . $dosya ) ) ? $dosya : '';
+	// 1) Kendi fotoğrafınızı koyduysanız o kazanır.
+	$ozel = 'foto/sektor-' . $slug . '.jpg';
+	if ( file_exists( get_theme_file_path( 'assets/img/' . $ozel ) ) ) {
+		return $ozel;
+	}
+	// 2) Yoksa data.php'de o sektör için tanımlı fotoğraf.
+	$s = ty_sektorler();
+	if ( ! empty( $s[ $slug ]['foto'] ) && file_exists( get_theme_file_path( 'assets/img/' . $s[ $slug ]['foto'] ) ) ) {
+		return $s[ $slug ]['foto'];
+	}
+	return '';
 }
 
 /** Sektör slug'ına göre ikon adı. */

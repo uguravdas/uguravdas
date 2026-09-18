@@ -146,14 +146,19 @@ $kapasite  = ty_tup_kapasite();
     <div class="grid-4">
       <?php
       $toplu = array(
-          array( 'fabrika', 'Fabrika ve OSB', 'Yüzlerce cihazlık listeyi kat planı üzerinden çıkarıyoruz.' ),
-          array( 'bina',    'Site ve apartman', 'Blok blok fiyat, tek seferde alımda birim maliyet düşüyor.' ),
-          array( 'restoran','Restoran ve otel', 'Mutfakta CO₂, salonda KKT — hattı doğru kuruyoruz.' ),
-          array( 'arac',    'Filo araçları',    'Araç sayısına göre toplu tüp ve sabitleme aparatı.' ),
+          array( 'fabrika', 'Fabrika ve OSB', 'Yüzlerce cihazlık listeyi kat planı üzerinden çıkarıyoruz.', 'foto/pano-ici.jpg' ),
+          array( 'bina',    'Site ve apartman', 'Blok blok fiyat, tek seferde alımda birim maliyet düşüyor.', 'foto/dolap-bina-ici.jpg' ),
+          array( 'restoran','Restoran ve otel', 'Mutfakta CO₂, salonda KKT — hattı doğru kuruyoruz.', 'foto/davlumbaz.jpg' ),
+          array( 'arac',    'Filo araçları',    'Araç sayısına göre toplu tüp ve sabitleme aparatı.', 'foto/arac-tupu.jpg' ),
       );
-      foreach ( $toplu as $t ) : ?>
-        <div class="card">
-          <span class="chip"><?php echo ty_ikon( $t[0] ); ?></span>
+      foreach ( $toplu as $t ) :
+        $tfoto = isset( $t[3] ) ? ty_gorsel( $t[3], $t[1], 'card-foto-img' ) : ''; ?>
+        <div class="card<?php echo $tfoto ? ' card-foto' : ''; ?>">
+          <?php if ( $tfoto ) : ?>
+            <span class="card-medya"><?php echo $tfoto; ?></span>
+          <?php else : ?>
+            <span class="chip"><?php echo ty_ikon( $t[0] ); ?></span>
+          <?php endif; ?>
           <h3><?php echo esc_html( $t[1] ); ?></h3>
           <p><?php echo esc_html( $t[2] ); ?></p>
         </div>

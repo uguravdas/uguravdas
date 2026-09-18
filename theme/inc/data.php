@@ -9,6 +9,7 @@ function ty_hizmetler() {
 	return array(
 		'yangin-tupu-dolumu' => array(
 			'ikon'    => 'tup',
+			'foto'    => 'foto/6kg-kkt.jpg',
 			'etiket'  => 'Söndürme cihazı',
 			'baslik'  => 'Yangın tüpü dolumu, bakımı ve satışı',
 			'ozet'    => 'ABC kuru kimyevi toz, CO₂ ve köpüklü cihazların dolumu ile yıllık yerinde kontrolü. Cihazlarınızı adresinizden alır, dolumunu yapar, aynı gün yerine takarız.',
@@ -16,6 +17,7 @@ function ty_hizmetler() {
 		),
 		'arac-yangin-tupu' => array(
 			'ikon'    => 'arac',
+			'foto'    => 'foto/arac-tupu.jpg',
 			'etiket'  => 'Araç tüpü',
 			'baslik'  => 'Araç yangın tüpü ve dolumu',
 			'ozet'    => 'Binek araç, ticari araç, kamyon ve otobüsler için yangın söndürme cihazı satışı ve dolumu. Muayeneye girmeden önce basıncı ve tarihi kontrol ediyoruz.',
@@ -23,6 +25,7 @@ function ty_hizmetler() {
 		),
 		'yangin-dolabi-hidrant' => array(
 			'ikon'    => 'dolap',
+			'foto'    => 'foto/yangin-dolabi.jpg',
 			'etiket'  => 'Dolap & hidrant',
 			'baslik'  => 'Yangın dolabı ve hidrant sistemleri',
 			'ozet'    => 'Sıva altı ve sıva üstü yangın dolabı montajı, mevcut dolapların hortum, lans ve makara yenilemesi, bina içi ve dışı hidrant hatlarının bakımı.',
@@ -30,6 +33,7 @@ function ty_hizmetler() {
 		),
 		'davlumbaz-sondurme' => array(
 			'ikon'    => 'ocak',
+			'foto'    => 'foto/davlumbaz.jpg',
 			'etiket'  => 'Davlumbaz',
 			'baslik'  => 'Davlumbaz söndürme sistemi',
 			'ozet'    => 'Ticari mutfaklarda davlumbaz ve ocak hattını koruyan otomatik söndürme sistemi. Yangını bacaya ulaşmadan, ocak üzerinde bastırır.',
@@ -37,6 +41,7 @@ function ty_hizmetler() {
 		),
 		'pano-ici-sondurme' => array(
 			'ikon'    => 'pano',
+			'foto'    => 'foto/pano-ici.jpg',
 			'etiket'  => 'Pano içi',
 			'baslik'  => 'Pano içi otomatik söndürme',
 			'ozet'    => 'Elektrik panosu, sunucu kabini ve makine panolarının içine yerleştirilen, elektrik gerektirmeden kendi kendine devreye giren söndürme sistemi.',
@@ -111,6 +116,7 @@ function ty_sektorler() {
 			'ad'   => 'Fabrika ve OSB tesisleri',
 			'ozet' => 'Hidrant kapsamı, pano koruması ve yüzlerce cihazın periyodik takibi',
 			'ikon' => 'fabrika',
+			'foto' => 'foto/pano-ici.jpg',
 			'hizmetler' => array( 'yangin-tupu-dolumu', 'yangin-dolabi-hidrant', 'pano-ici-sondurme', 'arac-yangin-tupu' ),
 			'mevzuat' => array(
 				array( 'Tehlike sınıfı ve cihaz sayısı', 'Üretim tesislerinde söndürme cihazı sayısı ve kapasitesi, alanın büyüklüğüne ve tehlike sınıfına göre belirlenir. Aynı metrekare için tekstil atölyesi ile boya hattı aynı korumayı gerektirmez.' ),
@@ -134,6 +140,7 @@ function ty_sektorler() {
 			'ad'   => 'Site ve apartman yönetimleri',
 			'ozet' => 'Kat başına cihaz, yangın dolabı ve yıllık kontrol raporu',
 			'ikon' => 'bina',
+			'foto' => 'foto/dolap-bina-ici.jpg',
 			'hizmetler' => array( 'yangin-tupu-dolumu', 'yangin-dolabi-hidrant', 'pano-ici-sondurme' ),
 			'mevzuat' => array(
 				array( 'Yıllık kontrol', 'Söndürme cihazlarının yılda bir kez yetkili servis tarafından yerinde kontrol edilmesi zorunludur. Bu, yönetimin sorumluluğundadır.' ),
@@ -157,6 +164,7 @@ function ty_sektorler() {
 			'ad'   => 'Depo ve lojistik tesisleri',
 			'ozet' => 'Yüksek raflı depolarda cihaz yerleşimi ve hidrant bağlantısı',
 			'ikon' => 'depo',
+			'foto' => 'foto/50kg-tekerlekli.jpg',
 			'hizmetler' => array( 'yangin-tupu-dolumu', 'yangin-dolabi-hidrant', 'arac-yangin-tupu', 'pano-ici-sondurme' ),
 			'mevzuat' => array(
 				array( 'Depolanan malzemenin cinsi', 'Koruma ihtiyacı depolanan malzemenin cinsine ve istif yüksekliğine göre değişir. Aynı alanda karton ile plastik hammadde aynı korumayı gerektirmez.' ),
@@ -180,6 +188,7 @@ function ty_sektorler() {
 			'ad'   => 'Restoran, kafe ve otel',
 			'ozet' => 'Davlumbaz söndürme sistemi, mutfak hattı için CO₂ ve kat dolapları',
 			'ikon' => 'restoran',
+			'foto' => 'foto/davlumbaz.jpg',
 			'hizmetler' => array( 'davlumbaz-sondurme', 'yangin-tupu-dolumu', 'yangin-dolabi-hidrant', 'pano-ici-sondurme' ),
 			'mevzuat' => array(
 				array( 'Davlumbaz otomatik söndürme', 'Yönetmelik, yüksek binalardaki mutfaklar ile anında 100 kişiden fazlasına hizmet veren mutfakların davlumbazlarına otomatik söndürme sistemi kurulmasını zorunlu tutar (Madde 41). Ayrıca gaz algılama, gaz kesme ve uyarı tesisatı aranır.' ),
@@ -203,6 +212,7 @@ function ty_sektorler() {
 			'ad'   => 'Okul, kreş ve yurt',
 			'ozet' => 'Tahliye güzergâhına uygun cihaz yerleşimi ve yıllık kontrol',
 			'ikon' => 'okul',
+			'foto' => 'foto/hortum-lans.jpg',
 			'hizmetler' => array( 'yangin-tupu-dolumu', 'yangin-dolabi-hidrant', 'davlumbaz-sondurme', 'pano-ici-sondurme' ),
 			'mevzuat' => array(
 				array( 'Tahliye önceliği', 'Eğitim yapılarında yangın güvenliğinin esası söndürmek değil, güvenli tahliyedir. Cihaz ve dolap yerleşimi tahliye güzergâhını daraltmayacak şekilde planlanır.' ),
@@ -226,6 +236,7 @@ function ty_sektorler() {
 			'ad'   => 'Ofis ve iş merkezleri',
 			'ozet' => 'Kat planına göre cihaz sayısı, pano ve sunucu odası koruması',
 			'ikon' => 'ofis',
+			'foto' => 'foto/dolap-dekoratif.jpg',
 			'hizmetler' => array( 'yangin-tupu-dolumu', 'pano-ici-sondurme', 'yangin-dolabi-hidrant' ),
 			'mevzuat' => array(
 				array( 'Cihaz sayısı ve erişim mesafesi', 'Cihaz sayısı kat alanına göre belirlenir; her noktadan en yakın cihaza erişim mesafesi sınırlıdır. Bölmeli ofiste bu mesafe uzar, cihaz sayısı artar.' ),
@@ -249,6 +260,7 @@ function ty_sektorler() {
 			'ad'   => 'Akaryakıt istasyonları',
 			'ozet' => 'Yüksek kapasiteli tekerlekli cihazlar ve sıkı kontrol periyodu',
 			'ikon' => 'akaryakit',
+			'foto' => 'foto/kopuklu.jpg',
 			'hizmetler' => array( 'yangin-tupu-dolumu', 'arac-yangin-tupu', 'davlumbaz-sondurme', 'pano-ici-sondurme' ),
 			'mevzuat' => array(
 				array( 'Parlayıcı sıvı tehlike sınıfı', 'Akaryakıt istasyonları yüksek tehlike sınıfındadır; cihaz kapasitesi ve sayısı buna göre artar.' ),
@@ -272,6 +284,7 @@ function ty_sektorler() {
 			'ad'   => 'Hastane ve sağlık tesisleri',
 			'ozet' => 'Bölüm bazlı cihaz seçimi ve kesintisiz alanlarda planlı bakım',
 			'ikon' => 'hastane',
+			'foto' => 'foto/5kg-co2.jpg',
 			'hizmetler' => array( 'yangin-tupu-dolumu', 'pano-ici-sondurme', 'yangin-dolabi-hidrant', 'davlumbaz-sondurme' ),
 			'mevzuat' => array(
 				array( 'Kullanıcı yükü ve tahliye', 'Sağlık yapıları, kendi başına tahliye olamayan kullanıcı barındırdığı için özel değerlendirilir; koruma ağırlığı erken müdahaleye kayar.' ),

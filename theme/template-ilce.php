@@ -49,8 +49,14 @@ while ( have_posts() ) : the_post(); ?>
           array( 'arac',  'Araç yangın tüpü', 'Binek, ticari ve ağır vasıta için muayeneden geçen tüp ve sabitleme aparatı.', 'arac-yangin-tupu' ),
       );
       foreach ( $ilce_urun as $u ) : ?>
+        <?php
+        $ih   = ty_hizmetler();
+        $ufoto = ! empty( $ih[ $u[3] ]['foto'] ) ? $ih[ $u[3] ]['foto'] : '';
+        ?>
         <a class="card urun" href="<?php echo esc_url( ty_url( $u[3] ) ); ?>">
-          <span class="chip"><?php echo ty_ikon( $u[0] ); ?></span>
+          <span class="urun-medya">
+            <?php echo $ufoto ? ty_gorsel( $ufoto, $u[1] ) : '<span class="chip">' . ty_ikon( $u[0] ) . '</span>'; ?>
+          </span>
           <h3><?php echo esc_html( $u[1] ); ?></h3>
           <p><?php echo esc_html( $u[2] ); ?></p>
           <span class="more">Ürünleri gör &rarr;</span>
@@ -69,8 +75,13 @@ while ( have_posts() ) : the_post(); ?>
     </div>
     <div class="grid-3">
       <?php foreach ( ty_hizmetler() as $slug => $h ) : ?>
-        <a class="card" href="<?php echo esc_url( ty_url( $slug ) ); ?>">
-          <span class="chip"><?php echo ty_ikon( $h['ikon'] ); ?></span>
+        <?php $hfoto = ! empty( $h['foto'] ) ? $h['foto'] : ''; ?>
+        <a class="card<?php echo $hfoto ? ' card-foto' : ''; ?>" href="<?php echo esc_url( ty_url( $slug ) ); ?>">
+          <?php if ( $hfoto ) : ?>
+            <span class="card-medya"><?php echo ty_gorsel( $hfoto, $h['baslik'], 'card-foto-img' ); ?></span>
+          <?php else : ?>
+            <span class="chip"><?php echo ty_ikon( $h['ikon'] ); ?></span>
+          <?php endif; ?>
           <span class="urun-yer"><?php echo esc_html( $h['etiket'] ); ?></span>
           <h3><?php echo esc_html( $h['baslik'] ); ?></h3>
           <p><?php echo esc_html( $h['ozet'] ); ?></p>

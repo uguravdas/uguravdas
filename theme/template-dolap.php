@@ -145,16 +145,21 @@ $dolap_urunler = function_exists( 'ty_grup_urunleri' ) ? ty_grup_urunleri( 'dola
     <div class="grid-3">
       <?php
       $ekipman = array(
-          array( 'dolap', 'Hortum', '25 mm yarı sert ya da 50 mm yassı, 20–30 m. TS EN 671 belgeli.' ),
-          array( 'dolap', 'Lans', 'Kapama-püskürtme-jet ayarlı, pirinç ya da ABS gövde.' ),
-          array( 'dolap', 'Makara', 'Sabit ve döner modeller, standart dolap ölçülerine uyumlu.' ),
-          array( 'belge', 'Küresel vana', '1" ve 2" pirinç küresel vana. Sızdıran vana yıllık kontrolde en çok çıkan eksik.' ),
-          array( 'belge', 'Rakor', 'Storz ve vidalı bağlantı elemanları.' ),
-          array( 'belge', 'Dolap camı', 'Kırılabilir dolap camı, standart ölçülerde.' ),
+          array( 'dolap', 'Hortum', '25 mm yarı sert ya da 50 mm yassı, 20–30 m. TS EN 671 belgeli.', 'foto/hortum-lans.jpg' ),
+          array( 'dolap', 'Lans', 'Kapama-püskürtme-jet ayarlı, pirinç ya da ABS gövde.', 'foto/hortum-lans.jpg' ),
+          array( 'dolap', 'Makara', 'Sabit ve döner modeller, standart dolap ölçülerine uyumlu.', 'foto/dolap-kopuklu.jpg' ),
+          array( 'belge', 'Küresel vana', '1" ve 2" pirinç küresel vana. Sızdıran vana yıllık kontrolde en çok çıkan eksik.', 'foto/vana-rakor.jpg' ),
+          array( 'belge', 'Rakor', 'Storz ve vidalı bağlantı elemanları.', 'foto/vana-rakor.jpg' ),
+          array( 'belge', 'Dolap camı', 'Kırılabilir dolap camı, standart ölçülerde.', 'foto/dolap-bina-ici.jpg' ),
       );
-      foreach ( $ekipman as $e ) : ?>
-        <div class="card">
-          <span class="chip"><?php echo ty_ikon( $e[0] ); ?></span>
+      foreach ( $ekipman as $e ) :
+        $efoto = isset( $e[3] ) ? ty_gorsel( $e[3], $e[1], 'card-foto-img' ) : ''; ?>
+        <div class="card<?php echo $efoto ? ' card-foto' : ''; ?>">
+          <?php if ( $efoto ) : ?>
+            <span class="card-medya"><?php echo $efoto; ?></span>
+          <?php else : ?>
+            <span class="chip"><?php echo ty_ikon( $e[0] ); ?></span>
+          <?php endif; ?>
           <h3><?php echo esc_html( $e[1] ); ?></h3>
           <p><?php echo esc_html( $e[2] ); ?></p>
         </div>

@@ -151,46 +151,70 @@ Bunlar bu paketin kapsamı dışında ama sitenin işine doğrudan etki ediyor:
 
 ## 6. Görseller
 
-### Ürün fotoğrafları artık kendiliğinden geliyor
+### Fotoğrafsız kart kalmadı
 
-Temada `assets/img/foto/` altında 18 fotoğraf duruyordu ama sitede yalnızca
-12'si görünüyordu. Sebep: `ty_urun_kart()` fonksiyonu, üründe WordPress
-"öne çıkan görsel" ayarlı değilse ikona düşüyordu — 13 ürünün hiçbirinde
-ayarlı olmadığı için bütün ürün kartları boş renkli kutu olarak çıkıyordu.
+Temada 18 fotoğraf vardı ama sitede yalnızca 12'si görünüyordu. Sebep koddaydı:
+ürün kartı, WordPress "öne çıkan görsel" ayarlı değilse ikona düşüyordu ve 13
+ürünün hiçbirinde ayarlı değildi.
 
-Eklenen `ty_urun_foto()` fonksiyonu önce öne çıkan görsele bakar, yoksa
-ürünün adına/slug'ına göre temadaki uygun fotoğrafı bulur. 13 canlı ürün
-adıyla test edildi: **10'u doğru fotoğrafa eşleşiyor**. Kalan üçünün
-(battaniye, aparat, vana-rakor) temada yalnızca "fotoğraf bekleniyor"
-yer tutucusu olduğu için ikon yedeğinde bırakıldı — yangın ekipmanında
-yanlış ürün fotoğrafı, fotoğrafsızlıktan kötüdür.
+Eklenen `ty_urun_foto()` önce öne çıkan görsele bakar, yoksa ürünün
+adına/slug'ına göre temadaki fotoğrafı bulur. **13 ürünün 13'ü** doğru
+fotoğrafa eşleşiyor. Panelden öne çıkan görsel seçerseniz her zaman o kazanır.
 
-Panelden bir ürüne öne çıkan görsel seçerseniz her zaman o kazanır.
-
-### Sektör kartlarına fotoğraf ekleme
-
-Sektör kartları şu an sade ve ikonlu. Fotoğraf eklemek için kod
-değiştirmeye gerek yok — şu adla bir dosya bırakmanız yeterli:
+Üç ürünün (yangın battaniyesi, duvar aparatı, vana-rakor) temada yalnızca
+"fotoğraf bekleniyor" yazan yer tutucusu vardı. Bunlar **yeni üretilen ürün
+fotoğraflarıyla değiştirildi** — mevcut çekimlerin tarzına (krem zemin, stüdyo
+ışığı, 800×600) uyacak şekilde hazırlandı. Kendi çekimleriniz olduğunda aynı
+dosya adlarının üzerine yazmanız yeterli:
 
 ```
-assets/img/foto/sektor-<slug>.jpg      önerilen boyut 1200x900 (4:3)
+assets/img/foto/battaniye.jpg
+assets/img/foto/aparat.jpg
+assets/img/foto/vana-rakor.jpg
 ```
 
-Slug listesi:
+### Sayfa başına fotoğraf sayısı
+
+| Sayfa | Fotoğraf | İkon yedeği |
+|---|---|---|
+| Ana sayfa | 12 | 0 |
+| Sektör sayfaları (8 adet) | 5 | 0 |
+| İlçe sayfaları (11 adet) | 8 | 0 |
+| Ürünler | 13 | 0 |
+| Tüp sayfaları | 9 | 0 |
+| Dolap sayfaları | 11 | 4 |
+| Ürün detay | 1 | 1 |
+
+Kalan ikonlar bilinçli: hesaplayıcı kartı, iletişim kartları ve soyut
+yönetmelik eşikleri ("1.000 m² üstü", "350 kW üstü kazan dairesi") — bunlara
+fotoğraf koymak yanıltıcı olurdu.
+
+### Nereye ne eklendi
+
+- **Ana sayfa:** kategori kartları ince 4'lü sıradan büyük fotoğraflı 2×2
+  düzene alındı; 8 sektör kartının tamamı fotoğraflandı.
+- **Sektör sayfaları:** sayfa başlığına o sektöre ait fotoğraf, hizmet
+  kartlarına ürün fotoğrafı eklendi.
+- **İlçe sayfaları:** ürün ve hizmet kartları fotoğraflandı.
+- **Tüp/dolap sayfaları:** toplu alım ve yedek parça kartları fotoğraflandı.
+- **Ürün detay sayfaları:** artık ürün fotoğrafı gösteriyor.
+
+### Sektör fotoğrafını değiştirmek
+
+Her sektörün fotoğrafı `inc/data.php` içinde `'foto' =>` satırında tanımlı.
+Kendi fotoğrafınızı koymak isterseniz kod değiştirmenize gerek yok; şu adla
+bir dosya bırakmanız yeterli, o dosya önceliklidir:
 
 ```
-sektor-fabrika-osb.jpg        sektor-okul-kres.jpg
-sektor-site-apartman.jpg      sektor-ofis-is-merkezi.jpg
-sektor-depo-lojistik.jpg      sektor-akaryakit.jpg
-sektor-restoran-otel.jpg      sektor-hastane-saglik.jpg
+assets/img/foto/sektor-<slug>.jpg      önerilen 1200x900 (4:3)
 ```
 
-Dosyayı koyduğunuz an o kart fotoğraflı hâle geçer; koymadığınız kartlar
-mevcut sade görünümünü korur, hiçbir şey bozulmaz.
+Slug listesi: `fabrika-osb`, `site-apartman`, `depo-lojistik`,
+`restoran-otel`, `okul-kres`, `ofis-is-merkezi`, `akaryakit`,
+`hastane-saglik`.
 
 ### Mevcut fotoğrafların sınırı
 
-Temadaki fotoğrafların tamamı **800×600**. Kart içinde nettir, ama hero
-gibi geniş alanlarda büyütülünce yumuşak kalır. Bu yüzden hero'yu
-fotoğrafa taşımadım. Geniş görsel kullanmak isterseniz en az **1600 piksel
-genişliğinde** dosya gerekir.
+Fotoğrafların tamamı **800×600**. Kart içinde nettir ama hero gibi tam genişlik
+alanlarda yumuşak kalır; bu yüzden ana sayfa hero'suna fotoğraf koymadım.
+Geniş görsel için en az **1600 piksel** genişliğinde dosya gerekir.
